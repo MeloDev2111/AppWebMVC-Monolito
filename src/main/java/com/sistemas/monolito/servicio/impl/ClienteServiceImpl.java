@@ -27,7 +27,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Optional<Cliente> buscar(Long id) {
-        return clienteRepository.findById(id);
+        Optional<Cliente> buscado = clienteRepository.findById(id);
+        buscado.ifPresent( (cliente) -> cliente.getOrdenes().size());
+        return buscado;
     }
 
     @Override
