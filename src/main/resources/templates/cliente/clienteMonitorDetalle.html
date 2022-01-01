@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+  <head th:replace="disenoBase::site-head"></head>
+  <body>
+    <header th:replace="disenoBase::site-header"></header>
+    <main class="container p-0" role="main"> 
+      <div class="container" id="divCasoForm"> 
+        <article> 
+          <header> 
+            <h4 class="text-primary" th:text="'Monitoreo de Orden -' +  
+                                              ${Orden.descripcion}"> 
+              Monitoreo 
+            </h4> 
+          </header> 
+          <!-- card text-white bg-primary mb- 3 --> 
+          <div class="row row-cols-1 row-cols-md-3 g-4"> 
+            <div style="max-width: 18rem;" 
+              th:each="asignacion :${listaAsignaciones}" 
+              th:class="${asignacion.empleado == null) ? 
+                        'card text-white bg-danger mb-3' : 
+                        (${asignacion.fechaInicio == null} ? 
+                          'card text-white bg-secondary mb-3': 
+                          (${asignacion.fechaFin == null) ? 
+                            'card text-white bg-primary mb-3':
+                            'card text-white bg-success mb-3'))"> 
+              
+              <div class="card-header" 
+                  th:text="${asignacion.fase.nombre}">Fase</div> 
+              <div class="card-body"> 
+                <h5 class="card-title" 
+                  th:text="${asignacion.fechaInicio == null) ? 
+                          'Pendiente' : 
+                          (${asignacion.fechaFin == null) ? 
+                            'En Proceso': 'Terminado')"> Estado</h5> 
+                <p class="card-text" 
+                  th:text="${asignacion.empleado != null) ? 
+                    ${asignacion.empleado.apellido} +  ', ' +
+                    ${asignacion.empleado.nombre} : 
+                    'Sin responsable asignado'"> Responsable.</p> 
+                <p th:text="${asignacion.fechaInicio != null) ? 
+                  'Iniciado: ' + 
+                  ${#calendars.format(asignacion.fechaInicio, 
+                    'dd/MM/yyyy')} : '(Sin iniciar)'"> 
+                    Iniciado</p> 
+                
+                <p th:text="${asignacion.fechaInicio != null) ? 
+                  'Terminado: ' + 
+                  ${#calendars.format(asignacion.fechaInicio, 
+                    'dd/MM/yyyy')} : '(pendiente)'"> 
+                    Finalizado
+                </p> 
+              </div> 
+            </div> 
+          </div> 
+          <footer> 
+            <div class="container"> 
+              <a class="btn btn-outline-secondary" 
+              th:href="@{/cliente/monitorear/}" 
+              role="button"> Regresar 
+              </a> 
+            </div> 
+          </footer> 
+        </article> 
+      </div> 
+    </main> 
+    <footer th: replace="disenoBase::site-footer"></footer>
+    <div th:replace="disenoBase::site-bootstrap"></div> 
+  </body> 
+  </html>
