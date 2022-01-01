@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace-"disenoBase::site-head"></head>
-<body>
-    <header th:replace="disenoBase::site-header"></header>
-   <main class="container p-0" role="main">
-        <div class="container bg-Light p-5 rounded mx-auto" id="divcasoForm">
+   <head th:replace="disenoBase::site-head"></head>
+   <body>
+      <header th:replace="disenoBase::site-header"></header>
+      <main class="container p-0" role="main">
+         <div class="container bg-Light p-5 rounded mx-auto" id="divcasoForm">
             <h4 class="text-primary">Datos de Tarifa</h4>
             <hr>
             <form class="row g-3" th:object="${fase}"
-                  th:action="${fase.id !- null} ?
-                        @{/fase/editar} : @{/fase/nuevo}" method="post">
-                <div class="hide">
-                    <!--<label for="inputId" class="form-label">Id</label>-->
-                    <input type="hidden" id="inputId" placeholder="ingrese Id"
-                           th:class-"${#fields.hasErrors('id')}?
-                                 'form-control is-invalid' : 'form-control"
-                           th:field="{id)}" th:value="{id}"/>
-                    <div class="invalid-feedback">
-                        <small th:errors="*(id}">error</small>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="inputNombre" class="form-Label">Nombre</label>
-                    <input type="text" id="inputNombre"
-                            placeholder="ingrese Nombre"
-                            th:class="${#fields.hasErrors('nombre')} ?
-                                 'form-control is-invalid' : 'form-control"
-                            th:field="*{nombre}" th:value="*{nombre}"/>
-                    <div class="valid-feedback">
-                        <small>Correcto</small>
-                    </div>
-                    <div class="invalid-feedback" >
-                        <small th:errors="*{nombre}">error</small>
-                    </div>
-                </div>
+               th:action="${fase.id != null} ?
+               @{/fase/editar} : @{/fase/nuevo}" method="post">
+               <div class="hide">
+                  <!--<label for="inputId" class="form-label">Id</label>-->
+                  <input type="hidden" id="inputId" placeholder="ingrese Id"
+                  th:class="${#fields.hasErrors('id')}? 'form-control is-invalid' : 'form-control'"
+                  th:field="*{id}" th:value="*{id}"/>
+                  <div class="invalid-feedback">
+                     <small th:errors="*{id}">error</small>
+                  </div>
+               </div>
+               <div class="col-md-6 mb-3">
+                  <label for="inputNombre" class="form-Label">Nombre</label>
+                  <input type="text" id="inputNombre"
+                     placeholder="ingrese Nombre"
+                     th:class="${#fields.hasErrors('nombre')} ? 'form-control is-invalid' : 'form-control'"
+                     th:field="*{nombre}" th:value="*{nombre}"/>
+                  <div class="valid-feedback">
+                     <small>Correcto</small>
+                  </div>
+                  <div class="invalid-feedback" >
+                     <small th:errors="*{nombre}">error</small>
+                  </div>
+               </div>
                <div class="col-12 mb-1">
-                    <button type="submit" class="btn btn-outline-primary">
-                        Aceptar
-                    </button>
-                   ka class="btn btn-outline-secondary"
-                        th:href="@{/fase/index}" role="button">
-                        Cerrar
-                    </a>
-                </div>
-                </form>
-                </div>
-                </main>
-                <footer th:replace-"disenoBase::site-footer"></footer>
-                <div th:replace="disenoBase::site-bootstrap"></div>
-                </body>
-                </html>
+                  <button type="submit" class="btn btn-outline-primary">
+                  Aceptar
+                  </button>
+                  <a class="btn btn-outline-secondary"
+                     th:href="@{/fase/index}" role="button">
+                  Cerrar
+                  </a>
+               </div>
+            </form>
+         </div>
+      </main>
+      <footer th:replace="disenoBase::site-footer"></footer>
+      <div th:replace="disenoBase::site-bootstrap"></div>
+   </body>
+</html>
