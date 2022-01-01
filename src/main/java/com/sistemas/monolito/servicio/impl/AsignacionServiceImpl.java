@@ -5,6 +5,7 @@ import com.sistemas.monolito.repositorio.AsignacionRepository;
 import com.sistemas.monolito.servicio.AsignacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,13 +22,31 @@ public class AsignacionServiceImpl implements AsignacionService {
     }
 
     @Override
+    @Transactional
     public List<Asignacion> listarTodos() {
-        return asignacionRepository.findAll();
+        List<Asignacion> asignaciones = asignacionRepository.findAll();
+
+        asignaciones.stream().forEach( (asignacion) ->{
+            asignacion.getFase().equals(null);
+            if(asignacion.getEmpleado() != null)
+                asignacion.getEmpleado().equals(null);
+        });
+
+        return asignaciones;
     }
 
     @Override
+    @Transactional
     public Optional<Asignacion> buscar(Long id) {
-        return asignacionRepository.findById(id);
+        Optional<Asignacion> buscado = asignacionRepository.findById(id);
+        buscado.ifPresent( (asignacion) ->{
+            asignacion.getOrden().equals(null);
+            asignacion.getFase().equals(null);
+            if (asignacion.getEmpleado() != null)
+                asignacion.getEmpleado().equals(null);
+        });
+
+        return buscado;
     }
 
     @Override
