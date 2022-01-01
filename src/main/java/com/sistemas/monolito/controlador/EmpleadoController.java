@@ -70,7 +70,7 @@ public class EmpleadoController {
 
         empleadoService.actualizar(empleado);
 
-        return "redict:/empleado/index";
+        return "redirect:/empleado/index";
     }
 
     @GetMapping("/eliminar/{id}")
