@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+chtml xmlns="http://ww.w3.org/1999/xhtml"
+    xmlns:th="http:///www.thymeleaf.org">
+<head th:replace="disenoBase::site-head"></head>
+<body>
+    kheader th:replace-"disenoBase::site-header"></header>
+   <main role="main">
+        <div class-"container" id="divCasoForm">
+            <Article>
+                <header>
+                    <H4 class="text-primary">Listado Tareas</H4>
+                </header>
+                <table class-"table table-striped table-bordered">
+                    <thead class-"thead-dark">
+                         <tr>
+                             <th>Etapa</th>
+                             <th>Empleado</th>
+                             <th>Fecha Inicio</th>
+                             <th>Fecha Fin</th>
+                             <th>Editar</th>
+                             <th>Iniciar</th>
+                             <th>Terminar</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <tr th:each="tarea
+                                            : ${ListaTareas}">
+                             <td th:text="${tarea.etapa.nombre}"></td>
+                             <td th:text="${tarea.empleado != null}?
+                                 ${tarea.empleado.apellido}+',
+                                 '+S{tarea.empleado.nombre}: 'no asignado'"></td>
+                             <td th:text="${#calendars.format(tarea.fechaInicio,
+                                 'dd/M/yyyy')}"></td>
+                             <td th:text-"${(#calendars.format(tarea.fechafin,
+                                 'dd//yyyy')}"></td>
+                             <td>xa class="btn btn-outline-warning btn-sm"
+                                 th:href-"@{/tarea/editar/}+${tarea.id}"
+                                 role="button">Editar</a></td>
+                             <td><a class="btn btn-outline-primary btn-sm"
+                                 th:href="@{/tarea/iniciar/}+${tarea.id}">
+                                 Iniciar</a></td>
+                             <td><a class="btn btn-outline-success btn-sm"
+                                 th:href="@{/tarea/terminar/}+${tarea. id}">
+                                 Terminar</a></td>
+                         </tr>
+                    </tbody>
+                    <tfoot>
+                         <tr>
+                             <td colspan="7">
+                                ka class="btn btn-outline-secondary"
+                                     th:href="@{/trabajo/index}" role="button">Regresar</a>
+                             </td>
+                         </tr>
+                    </tfoot>
+              </table>
+              </Article>
+              </div>
+              <div class="container" id="divCasoRes" style="display: none;"></div>
+              </main>
+              <footer th:replace-"disenoBase::site-footer"></footer>
+              <div th:replace-"disenoBase::site-bootstrap"></div>
+              </body>
+              </html>

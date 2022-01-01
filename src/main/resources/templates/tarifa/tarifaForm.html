@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<head th:replace="disenoBase::site-head"></head>
+<body>
+    <header th:replace="disenoBase::site-header"></header>
+   <main class="container p-0" role="main">
+        <div class="container bg-Light p-5 rounded mx-auto" id="divCasoForm">
+            <h4 class="text-primary">Datos de Tarifa</h4>
+            <hr>
+            <form class="row g-3" th:object="${tarifa}"
+                  th:action="${tarifa.id != null} ? @{/tarifa/editar} : @{/tarifa/nuevo}" method="post">
+                <div class="hide">
+                    <!--
+                    <label for="inputId" class="form-label">Id</label>
+                    -->
+                    <input type="hidden" id="inputId" placeholder="ingrese Id"
+                           th:class="${#fields.hasErrors('id')}? 'form-control is-invalid': 'form-control'"
+                           th:field="*{id}" th:value="*{id}"/>
+                    <div class="invalid-feedback">
+                        <small th:errors="*{id}">error</small>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="inputDescripcion" class="form-Label">Descripcion</label>
+                    <input type="text" id="inputDescripcion"
+                             placeholder="ingrese descripcion"
+                             th:class="${#fields.hasErrors('descripcion')} ? 'form-control is-invalid': 'form-control'"
+                             th:field="*{descripcion}" th:value="*{descripcion}"/>
+                    <div class="valid-feedback">
+                        <small>Correcto</small>
+                    </div>
+                    <div class="invalid-feedback" >
+                         <small th:errors="*{descripcion}">error</small>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="inputAreMinima" class="form-Label">Area Minima</label>
+                    <input type="number" id="inputArealinima"
+                            placeholder="ingrese area"
+                           th:class="${#fields.hasErrors('areaMinima')} ? 'form-control is-invalid' : 'form-control'"
+                           th:field="*{areaMinima}" th:value="*{areaMinima}"/>
+                    <div class="valid-feedback">
+                         <small>Correcto</small>
+                    </div>
+                    <div class="invalid-feedback">
+                        <small th:errors="*{areaMinima}">error</small>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="inputPrecio" class="form-Label">Precio</label>
+                    <input type="number" id="inputPrecio" placeholder="ingrese Precio"
+                           th:class="${#fields.hasErrors('precio')} ? 'form-control is-invalid': 'form-control'"
+                           th:field="*{precio}" th:value="*{precio}"/>
+                    <div class="valid-feedback">
+                       <small>Correcto</small>
+                    </div>
+                    <div class="invalid-feedback">
+                       <small th:errors="*{precio}">error</small>
+                    </div>
+                    </div>
+                    <div class="col-12 mb-1">
+                    <button type="submit" class="btn btn-outline-primary">
+                       Aceptar
+                    </button>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/tarifa/index}" role="button">
+                       Сеггaг
+                    </a>
+                    </div>
+                    </form>
+                    </div>
+                    </main>
+                    <footer th:replace="disenoBase::site-footer"></footer>
+                    <div th:replace="disenoBase::site-bootstrap"></div>
+                    </body>
+                    </html>

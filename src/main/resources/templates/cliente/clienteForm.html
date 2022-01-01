@@ -8,8 +8,7 @@
       <h4 class="text-primary">Datos de cliente</h4>
       <hr>
       <form class="row g-3" th:object="${cliente}" 
-      th:action="${cliente.id != null} ? 
-      @{/cliente/editar} : @{/cliente/nuevo}" method="post">
+      th:action="${cliente.id != null} ? @{/cliente/editar} : @{/cliente/nuevo}" method="post">
         
         <div class="hide">
           <!-- 
