@@ -32,15 +32,15 @@
                   </tr>
                </thead>
                <tbody>
-                  <tr th:each="empleado : ${ListaEmpleados}">
-                     <td th:text="S{empleado.apellido}"></td>
+                  <tr th:each="empleado : ${listaEmpleados}">
+                     <td th:text="${empleado.apellido}"></td>
                      <td th:text="${empleado.nombre}"></td>
                      <td th:text="${empleado.dni}"></td>
-                     <td th:text="${#calendars.format(empleado.fechaNacimiento, dd/vyyyy')}"></td>
+                     <td th:text="${#calendars.format(empleado.fechaNacimiento, 'dd/yyyy')}"></td>
                      <td th:text="${empleado.celular}"></td>
                      <td th:text="${empleado.email}"></td>
-                     <td th:text="S{#calendars.format(empleado.fechaIngreso, 'dd/Vyyyy')}"></td>
-                     <td><a class="btn btn-outline-warning btn-sm" th:href="@{/empleado/editar/j+${empleado.id}">Editar</a></td>
+                     <td th:text="${#calendars.format(empleado.fechaIngreso, 'dd/yyyy')}"></td>
+                     <td><a class="btn btn-outline-warning btn-sm" th:href="@{/empleado/editar/}+${empleado.id}">Editar</a></td>
                      <td><a class="btn btn-outline-danger btn-sm" th:href="@{/empleado/eliminar/}+${empleado.id}">Eliminar</a></td>
                   </tr>
                </tbody>
