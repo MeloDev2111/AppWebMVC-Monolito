@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="disenoBase::site-head"></head>
+<body>
+    <header th:replace="disenoBase::site-header"></header>
+   <main class="container p-e" role="main">
+       <div class="container" id="divCasoForm">
+            <article>
+                <header>
+                    <h4 class="text-primary">Listado Tarifas</h4>
+                    <div role="alert"
+                         class="alert-dismissible fade show alert alert-success"
+                         th:if="${flash != null}">
+                         <small th:text="${flash}"></small>
+                         <button type="button" class="btn-close"
+                             data-bs-dismiss="alert" aria-label="Close">
+                         </button>
+                    </div>
+                </header>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                         <tr>
+                             <th>Descripcion</th>
+                            <th>Area Minima (en mcsup>2</sup>)</th>
+                             <th>Precio (por m<sup>2</sup>)</th>
+                             <th>Editar</th>
+                             <th>Eliminar</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <tr th:each="tarifa : ${listaTarifas}">
+                             <td th:text="${tarifa.descripcion}"></td>
+                             <td th:text="${tarifa.areatinima}"></td>
+                             <td th:text="${tarifa.precio}"></td>
+                             <td>
+                                 <a class="btn btn-outline-warning btn-sm"
+                                     th:href="@{/tarifa/editar/}+${tarifa.id}">
+                                     Editar
+                                 </a>
+                             </td>
+                             <td>
+                                 <a class="btn btn-outline-danger btn-sm"
+                                     th:href="@{/tarifa/eliminar/}+${tarifa.id}">
+                                     Eliminar
+                                 </a>
+                             </td>
+                         </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan-8>
+                            <a class="btn btn-outline-success"
+                                 th:href="@{/tarifa/nuevo}"
+                                 role-"button">
+                                 Agregar Tarifa
+                            </a>
+                            <a class="btn btn-outline-secondary"
+                                 th:href="@{/index}"
+                                 role="button">
+                                 Regresar
+                            </a>
+                        </td>
+                    </tr>
+                    </tfoot>
+                    </table>
+                    </article>
+                    </div>
+                    </main>
+                    <footer th:replace="disenoBase::site-footer"></footer>
+                    <div th:replace="disenoBase::site-bootstrap"></div>
+                    </body>
+                    </html>
