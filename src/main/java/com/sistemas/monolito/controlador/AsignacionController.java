@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/asignacion")
@@ -24,15 +25,14 @@ public class AsignacionController {
     @GetMapping({"{ordenid}/", "{ordenid}/index"})
     public String getIndex( @PathVariable("ordenid") Long ordenid,
                             Model model){
-        List<Asignacion> listaAsignaciones = new ArrayList<Asignacion>();
         // solo se debe mostrar las tareas de una Orden especifica
-        for(Asignacion asignacion : asignacionService.listarTodos()){
-            if (asignacion.getOrden().getId() == ordenid){//uso de lombok para getters and setters
-                listaAsignaciones.add(asignacion);
-            }
-        }
         //agregar la lista al modelo para pasarlo a la vista
-        model.addAttribute("listaAsignaciones", listaAsignaciones);
+        //TODO REVIEW
+        model.addAttribute("listaAsignaciones",
+                asignacionService.listarTodos().stream()
+                        .filter((x) -> x.getOrden().getId() == ordenid)
+                        .collect(Collectors.toList()) );  // revisar despues toList()
+
         return "asignacion/asignacionIndex";
     }
 
@@ -59,7 +59,8 @@ public class AsignacionController {
 
             return "asignacion/asignacionForm";
         }
-
+        //TODO REVIEW
+        //asignacionService.agregar(asignacion);
         asignacionService.actualizar(asignacion);
 
         return "redirect:/asignacion/" + asignacion.getOrden().getId() + "/index";
@@ -80,7 +81,6 @@ public class AsignacionController {
         }
 
         //TODO REVISAR QUE HACER SI NO EXISTE
-
 
         return "redirect:/asignacion/" + ordenId + "/index";
     }
