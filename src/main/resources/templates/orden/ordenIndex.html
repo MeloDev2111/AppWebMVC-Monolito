@@ -34,7 +34,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="orden : ${ListaOrdenes}">
+        <tr th:each="orden : ${listaOrdenes}">
         <td th:text="${orden.descripcion}"></td>
         <td th:text="${orden.cliente.apellido}"</td>
         <td th:text="${#calendars.format (orden.fechaOrden,

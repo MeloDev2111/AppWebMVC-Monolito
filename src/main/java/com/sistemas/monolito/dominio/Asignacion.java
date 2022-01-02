@@ -2,6 +2,7 @@ package com.sistemas.monolito.dominio;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class Asignacion {
             )
     private Fase fase;
 
+    @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "empleado_id",
