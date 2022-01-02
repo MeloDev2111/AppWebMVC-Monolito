@@ -21,14 +21,14 @@
                   <thead>
                      <tr>
                         <th>Descripcion</th>
-                        <th>Area Minima (en mcsup>2</sup>)</th>
+                        <th>Area Minima (en m<sup>2</sup>)</th>
                         <th>Precio (por m<sup>2</sup>)</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                      </tr>
                   </thead>
                   <tbody>
-                     <tr th:each="tarifa:${listaTarifas}">
+                     <tr th:each="tarifa : ${listaTarifas}">
                         <td th:text="${tarifa.descripcion}"></td>
                         <td th:text="${tarifa.areaMinima}"></td>
                         <td th:text="${tarifa.precio}"></td>
@@ -51,7 +51,7 @@
                         <td colspan-8>
                            <a class="btn btn-outline-success"
                               th:href="@{/tarifa/nuevo}"
-                              role-"button">
+                              role="button">
                            Agregar Tarifa
                            </a>
                            <a class="btn btn-outline-secondary"

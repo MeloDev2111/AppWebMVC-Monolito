@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="disenoBase::site-head"></head>
+<body>
+<header th:replace="disenoBase::site-header"></header>
+<main role="main">
+    <div class="container" id="divCasoForm">
+        <article>
+            <header>
+                <h4 class="text-primary">Listado Asignaciones (Responsables)</h4>
+                <div role="alert"
+                     class="alert-dismissible fade show alert alert-success"
+                     th:if="${flash != null}">
+                    <small th:text="${flash}"></small>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="alert" aria-label="Close">
+
+                    </button>
+                </div>
+            </header>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Etapa</th>
+                    <th>Empleado</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="asignacion : ${listaAsignaciones}">
+                    <td th:text="${asignacion.fase.nombre}"></td>
+                    <td th:text="${asignacion.empleado != null} ?
+                        ${asignacion.empleado.apellido} + ', ' +
+                        ${asignacion.empleado.nombre} : 'Sin Asignar'">
+
+                    </td>
+                    <td th:text="${#calendars.format (asignacion.fechaInicio,
+                                'dd/MM/yyyy')}"></td>
+                    <td th:text="${#calendars.format (asignacion.fechaFin,
+                                'dd/MM/yyyy')}"></td>
+                    <td>
+                        <a class="btn btn-outline-warning btn-sm"
+                           th:href="@{/asignacion/editar/}+${asignacion.id}">
+                        Editar
+                        </a>
+                    </td>
+                    <td><a class="btn btn-outline-info btn-sm"
+                           th:href="@{/asignacion/iniciar/}+${asignacion.id}">
+                        Iniciar
+                    </a>
+                    </td>
+                    <td><a class="btn btn-outline-success btn-sm"
+                           th:href="@{/asignacion/terminar/}+${asignacion.id}">
+                        Terminar</a></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan=7>
+                        <a class="btn btn-outline-secondary"
+                           th:href="@{/orden/index}" role="button">
+                            Regresar</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </article>
+    </div>
+</main>
+<footer th:replace="disenoBase::site-footer"></footer>
+<div th:replace="disenoBase::site-bootstrap"></div>
+</body>
+</html>

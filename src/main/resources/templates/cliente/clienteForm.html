@@ -75,7 +75,7 @@
           <input type="date" id="inputFechaNacimiento"
           th:class="${#fields.hasErrors('fechaNacimiento')} ? 
           'form-control is-invalid': 'form-control'" 
-          th:field="*{fechaNacimiento}" th:value="#{fechaNacimiento}"/>
+          th:field="*{fechaNacimiento}" th:value="*{fechaNacimiento}"/>
           
           <div class="valid-feedback">
             <small>Correcto</small> 
@@ -105,7 +105,7 @@
           <input type="text" id="inputCelular" placeholder="ingrese Celular"
           th:class="${#fields.hasErrors('celular')} ? 
           'form-control is-invalid' : 'form-control'" 
-          th:field="*{celular}" th:value="#{celular}"/>
+          th:field="*{celular}" th:value="*{celular}"/>
           
           <div class="valid-feedback">
             <small>Correcto</small> 

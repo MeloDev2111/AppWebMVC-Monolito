@@ -9,7 +9,7 @@
       <hr> 
       <form class="row g-3" th:object="${cliente}" 
         th:action="@{/cliente/monitorear/lista}" method="post">
-        <div th:if="${#fields. hasErrors('*')}" role="alert"
+        <div th:if="${#fields.hasErrors('*')}" role="alert"
           class="alert alert-danger alert-dismissible fade show"> 
           <strong>Error!</strong>, verifique la selección. 
           <button type="button" class="close"
@@ -50,6 +50,6 @@
     </div>
   </main> 
   <footer th:replace="disenoBase::site-footer"></footer>
-  <div th: replace="disenoBase::site-bootstrap"></div> 
+  <div th:replace="disenoBase::site-bootstrap"></div>
 </body> 
 </html>

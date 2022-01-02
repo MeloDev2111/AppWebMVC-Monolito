@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyme Leaf.org">
+
+<head th:replace="disenoBase::site-head"></head>
+
+<body>
+<header th: replace="disenoBase::site-header"></header>
+<main class="container p-0" role="main">
+    <div class="container bg-light p-5 rounded mx-auto" id="divCasoForm">
+        <h4 class="text-primary">Datos de Asignación (Responsable)</h4>
+        <hr>
+        <form class="row g-3" th:object="${asignacion}"
+              th:action="${asignacion.id != null}?
+                    @{/asignacion/editar} : {/asignacion/nuevo}" method="post">
+
+            <div class="hide">
+                <!--
+                    <label for="inputId" class="form-label">ID</label>
+                -->
+                <input type="hidden" id="inputId" placeholder="ingrese Id" th:class="${#fields.hasErrors('id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+
+                <div class="invalid-feedback">
+                    <small th:errors="*{id}">error</small>
+                </div>
+            </div>
+
+
+            <div class="hide">
+                <!--
+                    <label for="inputId" class="form-label">ID</label>
+                -->
+                <input type="hidden" id="inputOrdenId" placeholder="ingrese Id"
+                       th:class="${#fields.hasErrors('id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+
+                <div class="invalid-feedback">
+                    <small th:errors="*{id}">error</small>
+                </div>
+            </div>
+
+
+            <div class="hide">
+                <!--
+                    <label for="inputId" class="form-label">ID</label>
+                -->
+                <input type="hidden" id="inputFaseId" placeholder="ingrese Id" th:class="${#fields.hasErrors('id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+
+                <div class="invalid-feedback">
+                    <small th:errors="*{id}">error</small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <label for="inputFase" class="form-label">Fase</label>
+                <input type="text" id="inputDescripcion" placeholder="ingrese Fase"
+                       th:class="${#fields.hasErrors('fase.nombre')} ? 'form-control is-invalid': 'form-control'"
+                       th:field="*{fase.nombre}" th:value="*{fase.nombre}" readonly />
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{fase.nombre}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="selectEmpleado" class="form-label">Empleado:</label>
+                <select id="selectEmpleado" name="empleado.id"
+                        th:class="${#fields.hasErrors('empleado.id')} ? 'form-control is-invalid'
+                        : 'form-control'">
+                    <option value="">--Seleccione empleado--</option>
+                    <option th:each="sempleado : ${listaEmpleados}"
+                            th:value="${sempleado.id}"
+                            th:text="${sempleado.apellido} + ', ' + ${sempleado.nombre}"
+                            th:selected="${sempleado.id}==*{empleado.id}" />
+                </select>
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{cliente.id}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="inputFechaInicio"
+                       class="form-label">Fecha Inicio</label>
+                <input type="date" id="inputFechaInicio"
+                       th:class="${#fields.hasErrors('fechaInicio')} ?
+                        'form-control is-invalid': 'form-control'"
+                       th:field="*{fechaInicio}" th:value="*{fechaInicio}" readonly/>
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{fechaInicio}">error</small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <label for="inputFechaFin"
+                       class="form-label">Fecha Termino</label>
+                <input type="date" id="inputFechaFin"
+                       th:class="${#fields.hasErrors('fechaFin')} ?
+                        'form-control is-invalid': 'form-control'"
+                       th:field="*{fechaFin}" th:value="*{fechaFin}" readonly/>
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{fechaFin}">error</small>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 mb-1">
+                <button type="submit" class="btn btn-outline-primary">
+                    Aceptar
+                </button>
+                <a class="btn btn-outline-secondary"
+                   th:href="@{/asignacion/} + *{orden.id} + '/index'" role="button">
+                    Regresar
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="disenoBase::site-footer"></footer>
+<div th:replace="disenoBase::site-bootstrap"></div>
+
+
+</body>
+
+</html>

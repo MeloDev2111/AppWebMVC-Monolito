@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyme Leaf.org">
+
+<head th:replace="disenoBase::site-head"></head>
+
+<body>
+<header th: replace="disenoBase::site-header"></header>
+<main class="container p-0" role="main">
+    <div class="container bg-light p-5 rounded mx-auto" id="divCasoForm">
+        <h4 class="text-primary">Datos de Orden</h4>
+        <hr>
+        <form class="row g-3" th:object="${orden};" th:action="${orden.id != null}?
+                    @{/orden/editar} : {/orden/nuevo}" method="post">
+            <div class="hide">
+                <!--
+                    <label for="inputId" class="form-label">ID</label>
+                -->
+                <input type="hidden" id="inputId" placeholder="ingrese Id" th:class="${#fields.hasErrors('id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+
+                <div class="invalid-feedback">
+                    <small th:errors="*{id}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="inputDescripcion" class="form-label">Descripcion</label>
+                <input type="text" id="inputDescripcion" placeholder="ingrese descripcion"
+                       th:class="${#fields.hasErrors('descripcion')} ? 'form-control is-invalid': 'form-control'"
+                       th:field="*{descripcion}" th:value="*{descripcion}" />
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{descripcion}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="selectCliente" class="form-label">Cliente:</label>
+                <select id="selectNombre" name="cliente.id" th:class="${#fields.hasErrors('cliente. id')} ? 'form-control is-invalid'
+                        : 'form-control'">
+                    <option th:each="scliente : ${listaClientes}" th:value="${scliente.id}"
+                            th:text="${scliente.apellido} + ', ' + ${scliente.nombre}"
+                            th:selected="${scliente.id}==*{cliente.id}" />
+                </select>
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{cliente.id}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="inputLargo" class="form-label">Largo (m<sup>2</sup>)</label>
+                <input type="text" id="inputLargo" placeholder="ingrese Largo en m2" th:class="${#fields.hasErrors('largo')} ?
+                        'form-control is-invalid': 'form-control'" th:field="*{largo}" th:value="*{largo}" />
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{largo}">error</small>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+                <label for="inputAncho" class="form-label">Ancho (m<sup>2</sup>)</label>
+                <input type="text" id="inputAncho" placeholder="ingrese ancho en m2"
+                       th:class="${#fields.hasErrors(' ancho')} ? 'form-control is-invalid': 'form-control'"
+                       th:field="*{ancho}" th:value="*{ancho}" />
+
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{ancho}">error</small>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="selectTarifa" class="form-Label">Tarifa </label>
+                <select id="selectTarifa" name="tarifa.id" th:class="${#fields.hasErrors('tarifa.id')} ?
+            'form-control is-invalid' : 'form-control'">
+                    <option th:each="starifa : ${listaTarifas}" th:value="${starifa.id}"
+                            th:text="${starifa.descripcion} + ' (' + ${starifa.precio} + ')'"
+                            th:selected="${starifa.id}==*{tarifa.id}" />
+                </select>
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{tarifa. id}">error</small>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="inputCosto" class="form-label">Costo </label>
+                <input type="number" id="inputCosto" placeholder="ingrese costo" th:class="${#fields.hasErrors('costo')} ?
+            'form-control is-invalid' : 'form-control'" th:field="*{costo}" th:value="*{costo}" />
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{costo}">error</small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <label for="inputFechaOrden" class="form-label">Fecha Orden</label>
+                <input type="date" id="inputFechaOrden" th:class="${#fields.hasErrors fechaOrden')} ?
+                'form-control is-invalid' : 'form-control'" th:field="*{fechaOrden}" th:value="{fechaOrden}" />
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{fechaOrden}">error</small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <label for="inputFechaEntrega" class="form-label">Fecha Entrega</label>
+                <input type="date" id="inputFechaEntrega" th:class="${#fields.hasErrors('fecha Entrega')} ?
+                'form-control is-invalid': 'form-control'" th:field="*{fechaEntrega}" th:value="*{fecha Entrega}" />
+
+                <div class="valid-feedback">
+                    <small>Correcto</small>
+                </div>
+                <div class="invalid-feedback">
+                    <small th:errors="*{fechaEntrega}">error</small>
+                </div>
+            </div>
+
+            <div class="col-12 mb-1">
+                <button type="submit" class="btn btn-outline-primary">
+                    Aceptar
+                </button>
+                <a class="btn btn-outline-secondary" th:href="@{/orden/index}" role="button">
+                    Cerrar
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="disenoBase::site-footer"></footer>
+<div th:replace="disenoBase::site-bootstrap"></div>
+
+
+<script type="text/javascript">
+    const CalcularCosto = () => {
+        let numAncho = document.getElementById("inputAncho").value;
+        let numLargo = document.getElementById("inputLargo").value;
+        let indice = document.getElementById("selectTarifa").selectedIndex;
+        let strTarifa = document.getElementById("selectTarifa").options[indice].text;
+        let inicio = strTarifa.indexOf('(');
+        let fin=strTarifa.indexOf(')');
+        let strAux = strTarifa.substring(inicio + 1, fin);
+        let numTarifa = Number.parseFloat(strAux);
+
+        document.getElementById("inputCosto").value = numTarifa * numAncho * numLargo;
+    }
+    document.getElementById('inputAncho').addEventListener('input', CalcularCosto);
+    document.getElementById('inputLargo').addEventListener('input', CalcularCosto);
+    document.getElementById('selectTarifa').addEventListener('input', CalcularCosto);
+</script>
+</body>
+
+</html>
