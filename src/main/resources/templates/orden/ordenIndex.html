@@ -42,8 +42,7 @@
         <td th:text="${orden.largo}"></td>
         <td th:text="${orden.ancho}"></td>
         <td th:text="${orden.costo}"></td>
-        <td th:text="${#calendars.format(trabajo.fechaEntrega,
-                                'dd/MM/yyyy)}"></td>
+        <td th:text="${#calendars.format(orden.fechaEntrega,'dd/MM/yyyy')}"></td>
         <td>
             <a class="btn btn-outline-info btn-sm"
                th:href="@{/asignacion/}+${orden.id}+'/index/'">
@@ -54,7 +53,7 @@
                th:href="@{/orden/editar/}+${orden.id}">
             Editar</a></td>
         <td><a class="btn btn-outline-danger btn-sm"
-               th:href="@{/orden/eliminar/+${orden.id}">
+               th:href="@{/orden/eliminar/}+${orden.id}">
             Eliminar</a></td>
         </tr>
         </tbody>
