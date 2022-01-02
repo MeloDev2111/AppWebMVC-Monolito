@@ -112,7 +112,7 @@ public class ClienteController {
         return "cliente/clienteMonitorIndex";
     }
 
-    @GetMapping("/monitorear/trabajo/{id}")
+    @GetMapping("/monitorear/orden/{id}")
     public String getMonitorearDetalle(
             @PathVariable("id") Long id,
             Model model){
