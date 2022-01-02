@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thyme Leaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="disenoBase::site-head"></head>
 
 <body>
-<header th: replace="disenoBase::site-header"></header>
+<header th:replace="disenoBase::site-header"></header>
 <main class="container p-0" role="main">
     <div class="container bg-light p-5 rounded mx-auto" id="divCasoForm">
         <h4 class="text-primary">Datos de Asignación (Responsable)</h4>
         <hr>
         <form class="row g-3" th:object="${asignacion}"
-              th:action="${asignacion.id != null}?
-                    @{/asignacion/editar} : {/asignacion/nuevo}" method="post">
+              th:action="@{/asignacion/editar}" method="post">
 
             <div class="hide">
                 <!--
@@ -23,6 +22,8 @@
                 <div class="invalid-feedback">
                     <small th:errors="*{id}">error</small>
                 </div>
+
+
             </div>
 
 
@@ -31,11 +32,11 @@
                     <label for="inputId" class="form-label">ID</label>
                 -->
                 <input type="hidden" id="inputOrdenId" placeholder="ingrese Id"
-                       th:class="${#fields.hasErrors('id')}?
-                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+                       th:class="${#fields.hasErrors('orden.id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{orden.id}" th:value="*{orden.id}" />
 
                 <div class="invalid-feedback">
-                    <small th:errors="*{id}">error</small>
+                    <small th:errors="*{orden.id}">error</small>
                 </div>
             </div>
 
@@ -44,11 +45,11 @@
                 <!--
                     <label for="inputId" class="form-label">ID</label>
                 -->
-                <input type="hidden" id="inputFaseId" placeholder="ingrese Id" th:class="${#fields.hasErrors('id')}?
-                        'form-control is-invalid': 'form-control is-valid'" th:field="*{id}" th:value="*{id}" />
+                <input type="hidden" id="inputFaseId" placeholder="ingrese Id" th:class="${#fields.hasErrors('fase.id')}?
+                        'form-control is-invalid': 'form-control is-valid'" th:field="*{fase.id}" th:value="*{fase.id}" />
 
                 <div class="invalid-feedback">
-                    <small th:errors="*{id}">error</small>
+                    <small th:errors="*{fase.id}">error</small>
                 </div>
             </div>
 
@@ -69,8 +70,7 @@
             <div class="col-md-6 mb-3">
                 <label for="selectEmpleado" class="form-label">Empleado:</label>
                 <select id="selectEmpleado" name="empleado.id"
-                        th:class="${#fields.hasErrors('empleado.id')} ? 'form-control is-invalid'
-                        : 'form-control'">
+                        th:class="${#fields.hasErrors('empleado.id')} ? 'form-control is-invalid' : 'form-control'">
                     <option value="">--Seleccione empleado--</option>
                     <option th:each="sempleado : ${listaEmpleados}"
                             th:value="${sempleado.id}"
@@ -81,7 +81,7 @@
                     <small>Correcto</small>
                 </div>
                 <div class="invalid-feedback">
-                    <small th:errors="*{cliente.id}">error</small>
+                    <small th:errors="*{empleado.id}">error</small>
                 </div>
             </div>
 

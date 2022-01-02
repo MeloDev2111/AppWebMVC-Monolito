@@ -3,10 +3,7 @@ package com.sistemas.monolito.controlador;
 import com.sistemas.monolito.dominio.Asignacion;
 import com.sistemas.monolito.dominio.Fase;
 import com.sistemas.monolito.dominio.Orden;
-import com.sistemas.monolito.servicio.ClienteService;
-import com.sistemas.monolito.servicio.FaseService;
-import com.sistemas.monolito.servicio.OrdenService;
-import com.sistemas.monolito.servicio.TarifaService;
+import com.sistemas.monolito.servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +24,7 @@ public class OrdenController {
     @Autowired private ClienteService clienteService;
     @Autowired private TarifaService tarifaService;
     @Autowired private FaseService faseService;
+    @Autowired private AsignacionService asignacionService;
 
     @GetMapping({"/","/index"})
     public String getIndex(Model model){
@@ -65,16 +63,24 @@ public class OrdenController {
             return "orden/ordenForm";
         }
 
+        ArrayList<Asignacion> list_asignaciones = new ArrayList<Asignacion>();
+
         for (Fase fase : faseService.listarTodos()){
             Asignacion asignacion = new Asignacion();
-
             asignacion.setOrden(orden);
             asignacion.setFase(fase);
-            asignaciones.add(asignacion);
+
+            list_asignaciones.add(asignacion);
         }
+
 
         orden.setAsignaciones(asignaciones);
         ordenService.agregar(orden);
+
+        list_asignaciones.forEach((e) -> {
+            asignacionService.agregar(e);
+        });
+
         redirectAttributes.addFlashAttribute("flash", "Agregado Correctamente");
         return "redirect:/orden/index";
     }

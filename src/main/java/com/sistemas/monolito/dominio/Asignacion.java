@@ -38,7 +38,7 @@ public class Asignacion {
     @JoinColumn(
             name = "empleado_id",
             referencedColumnName = "id",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_empleado_asignacion")
             )
     private Empleado empleado;
