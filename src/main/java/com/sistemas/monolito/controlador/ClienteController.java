@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -40,7 +41,7 @@ public class ClienteController {
     public String postClienteFormNew(
             @Valid @ModelAttribute("cliente") Cliente cliente,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttrs){
 
         if(bindingResult.hasErrors()){
             //si hay errores vuelve a mostrar el formulario
@@ -48,6 +49,7 @@ public class ClienteController {
         }
 
         clienteService.agregar(cliente);
+        redirectAttrs.addFlashAttribute("flash", "Agregado Correctamente");
 
         return "redirect:/cliente/index";
     }
@@ -56,12 +58,8 @@ public class ClienteController {
     public String getClienteFormEdit(@PathVariable("id") Long id,
                                      Model model){
         Optional<Cliente> buscado = clienteService.buscar(id);
-
-        if (buscado.isPresent()){
-            model.addAttribute("cliente", buscado.get());
-        }else{
-            model.addAttribute("cliente", new Cliente());
-        }
+        model.addAttribute("cliente",
+                buscado.isPresent() ? buscado.get() : new Cliente());
 
         return "cliente/clienteForm";
     }
@@ -70,22 +68,23 @@ public class ClienteController {
     public String postClienteFormEdit(
             @Valid @ModelAttribute("Cliente") Cliente cliente,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttrs){
 
         if(bindingResult.hasErrors()){
             return "cliente/clienteForm";
         }
 
         clienteService.actualizar(cliente);
+        redirectAttrs.addFlashAttribute("flash", "Actualizado Correctamente");
 
         return "redirect:/cliente/index";
     }
 
     @GetMapping("/eliminar/{id}")
     public String getClienteEliminar( @PathVariable("id") Long id,
-                                      Model model){
+                                      RedirectAttributes redirectAttrs){
         clienteService.eliminar(id);
-
+        redirectAttrs.addFlashAttribute("flash", "Eliminado Correctamente");
         return "redirect:/cliente/index";
     }
 
@@ -133,6 +132,5 @@ public class ClienteController {
         }
 
         return "cliente/clienteMonitorDetalle";
-
     }
 }
