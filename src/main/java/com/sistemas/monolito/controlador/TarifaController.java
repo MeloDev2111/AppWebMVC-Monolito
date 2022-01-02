@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -34,14 +35,14 @@ public class TarifaController {
     public String postTarifaFormNew(
             @Valid @ModelAttribute("tarifa") Tarifa tarifa,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             return "tarifa/tarifaForm";
         }
 
         tarifaService.agregar(tarifa);
-
+        redirectAttributes.addFlashAttribute("flash", "Agregado Correctamente");
         return "redirect:/tarifa/index";
     }
 
@@ -50,11 +51,8 @@ public class TarifaController {
                                     Model model){
         Optional<Tarifa> buscado = tarifaService.buscar(id);
 
-        if(buscado.isPresent()){
-            model.addAttribute("tarifa", buscado.get());
-        }else{
-            model.addAttribute("tarifa", new Tarifa());
-        }
+        model.addAttribute("tarifa",
+                buscado.isPresent() ? buscado.get() : new Tarifa());
 
         return "tarifa/tarifaForm";
     }
@@ -63,21 +61,22 @@ public class TarifaController {
     public String postTarifaFormEdit(
             @Valid @ModelAttribute("tarifa") Tarifa tarifa,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             return "tarifa/tarifaForm";
         }
 
         tarifaService.actualizar(tarifa);
-
+        redirectAttributes.addFlashAttribute("flash", "Actualizado Correctamente");
         return "redirect:/tarifa/index";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String getTarifaEliminar(@PathVariable("id") Long id){
+    public String getTarifaEliminar(@PathVariable("id") Long id,
+                                    RedirectAttributes redirectAttributes){
         tarifaService.eliminar(id);
-
+        redirectAttributes.addFlashAttribute("flash", "Eliminado Correctamente");
         return "redirect:/tarifa/index";
     }
 }
