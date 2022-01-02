@@ -1,5 +1,6 @@
 package com.sistemas.monolito.controlador;
 
+import com.sistemas.monolito.dominio.Empleado;
 import com.sistemas.monolito.dominio.Fase;
 import com.sistemas.monolito.servicio.FaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -34,14 +36,14 @@ public class FaseController {
     public String postFaseNuevoForm(
             @Valid @ModelAttribute("fase") Fase fase,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttrs){
 
         if(bindingResult.hasErrors()){
             return "fase/faseForm";
         }
 
         faseService.agregar(fase);
-
+        redirectAttrs.addFlashAttribute("flash", "Agregado Correctamente");
         return "redirect:/fase/index";
     }
 
@@ -51,11 +53,9 @@ public class FaseController {
             Model model){
 
         Optional<Fase> buscado = faseService.buscar(id);
-        if (buscado.isPresent()){
-            model.addAttribute("fase",buscado.get());
-        } else{
-            model.addAttribute("fase",new Fase());
-        }
+
+        model.addAttribute("fase",
+                buscado.isPresent() ? buscado.get() : new Fase());
 
         return "fase/faseForm";
     }
@@ -64,24 +64,24 @@ public class FaseController {
     public String postFaseEditForm(
             @Valid @ModelAttribute("fase") Fase fase,
             BindingResult bindingResult,
-            Model model){
+            RedirectAttributes redirectAttrs){
 
         if(bindingResult.hasErrors()){
             return "fase/faseForm";
         }
 
         faseService.actualizar(fase);
-
+        redirectAttrs.addFlashAttribute("flash", "Actualizado Correctamente");
         return "redirect:/fase/index";
     }
 
     @GetMapping("/eliminar/{id}")
     public String getFaseEliminar(
             @PathVariable("id") Long id,
-            Model model){
+            RedirectAttributes redirectAttrs){
 
         faseService.eliminar(id);
-
+        redirectAttrs.addFlashAttribute("flash", "Eliminado Correctamente");
         return "redirect:/fase/index";
     }
 
